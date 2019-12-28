@@ -13,4 +13,4 @@
 
 * Image
 
-![Alt text](./image.jpg)
+![Executed Image](./image.jpg)
