@@ -13,4 +13,4 @@
 
 * Image
 
-![Executed Image](./image.jpg)
+![Executed Image](./image.JPG)
