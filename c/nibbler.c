@@ -588,7 +588,7 @@ void doNibbler(int size) {
 	// printf("%d칸 중에서 %d칸이 채워졌습니다.\n", size*size, length_nibbler);
 	// printf("손 볼게 많은 길 찾기 알고리즘입니다. ^0^;\n");
 	length_nibbler = 0;// 초기화
-	printf("-----------------------------------------\n");
+	printf("-----------------------------------------------\n");
 
 }
 
@@ -602,7 +602,7 @@ void main_of_project() {
 
 		// 목록 출력
 		printf("Program showing the order of filling N*N matrix\n");
-		printf("===================List==================\n\n");
+		printf("======================List=====================\n\n");
 		for (int i = 0; i < sizeof(actionList) / sizeof(actionList[0]); i++) {
 			printf("#%d : %s\n", i + 1, actionList[i]);
 		}
