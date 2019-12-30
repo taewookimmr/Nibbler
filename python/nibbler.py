@@ -49,6 +49,7 @@ class Nibbler(threading.Thread):
 
             self.determine_dir()
             time.sleep(1/self.speed)
+        print("nibbler died")
             
     def init_nibbler(self):
         self.headDir = 0
@@ -82,7 +83,7 @@ class Nibbler(threading.Thread):
             print("fail to add tail")
 
     def move(self):
-        cango, nr, nc = self.is_able_to_go()
+        cango, nr, nc = self.is_able_to_go(newDir=self.headDir)
         if cango:
             np = nr*self.mapsize+nc
             # 현재 꼬리를 지우고, 새로운 머리에 붙이는 방식으로 이동한다.
@@ -134,13 +135,13 @@ class Nibbler(threading.Thread):
         else :
             dr,dc = dir[newDir]
             nr, nc = r+dr, c+dc
-            if newDir == RIGHT and nc < 0 and nc >= self.mapsize:
+            if newDir == RIGHT and (nc < 0 or nc >= self.mapsize):
                 return False, -1,-1
-            elif newDir == LEFT and nc < 0 and nc >= self.mapsize:
+            elif newDir == LEFT and (nc < 0 or nc >= self.mapsize):
                 return False, -1, -1
-            elif newDir == UP and nr < 0 and nr >= self.mapsize:
+            elif newDir == UP and (nr < 0 or nr >= self.mapsize):
                 return False, -1, -1
-            elif newDir == DOWN and nr <0 and nr >= self.mapsize:
+            elif newDir == DOWN and (nr <0 or nr >= self.mapsize):
                 return False, -1, -1
         
             np = nr*self.mapsize+nc
@@ -289,7 +290,6 @@ class Nibbler(threading.Thread):
         self.headDir = -1
         self.runFlag = False
         return 
-
 
     def create_apple(self):
         while True:
