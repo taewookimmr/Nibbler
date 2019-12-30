@@ -25,7 +25,7 @@ class Nibbler(threading.Thread):
         self.mapsize = size 
         self.headDir = 0
         self.body = []
-        self.speed = 20
+        self.speed = 15
         self.runFlag = True
         self.applePosition = -1 # 사과의 위치
         self.appleEatten = False # 사과 먹었는 지 유무
@@ -134,13 +134,13 @@ class Nibbler(threading.Thread):
         else :
             dr,dc = dir[newDir]
             nr, nc = r+dr, c+dc
-            if newDir == RIGHT and nc >= self.mapsize:
+            if newDir == RIGHT and nc < 0 and nc >= self.mapsize:
                 return False, -1,-1
-            elif newDir == LEFT and nc < 0:
+            elif newDir == LEFT and nc < 0 and nc >= self.mapsize:
                 return False, -1, -1
-            elif newDir == UP and nr < 0:
+            elif newDir == UP and nr < 0 and nr >= self.mapsize:
                 return False, -1, -1
-            elif newDir == DOWN and nr >= self.mapsize:
+            elif newDir == DOWN and nr <0 and nr >= self.mapsize:
                 return False, -1, -1
         
             np = nr*self.mapsize+nc
@@ -162,10 +162,16 @@ class Nibbler(threading.Thread):
         right,left,up,down = [False]*4
         for nextdir in dirList:
             if self.headDir == nextdir:
-                 right = self.is_able_to_go(RIGHT)
-                 left  = self.is_able_to_go(LEFT)
-                 up    = self.is_able_to_go(UP)
-                 down  = self.is_able_to_go(DOWN)
+                 right, _, _ = self.is_able_to_go(RIGHT)
+                 left, _, _  = self.is_able_to_go(LEFT)
+                 up, _, _    = self.is_able_to_go(UP)
+                 down, _, _  = self.is_able_to_go(DOWN)
+                 break
+        if self.headDir == RIGHT:   left  = 0
+        if self.headDir == LEFT:    right = 0
+        if self.headDir == UP:      down  = 0
+        if self.headDir == DOWN:    up    = 0
+
         
         r = dr if dr >=0 else -1
         c = dc if dc >=0 else -1
@@ -204,8 +210,7 @@ class Nibbler(threading.Thread):
             if down:
                 selfheadDir = DOWN
                 return
-            
-            
+              
         if c > 0:
             if right :
                 self.headDir = RIGHT
@@ -224,7 +229,6 @@ class Nibbler(threading.Thread):
                 self.headDir = LEFT
                 return
         
-
         if c < 0:
 
             if left :
@@ -239,8 +243,6 @@ class Nibbler(threading.Thread):
             if down and r > 0:
                 self.headDir = DOWN
                 return
-        
-
         
             if right: 
                 headDir = RIGHT
@@ -288,8 +290,6 @@ class Nibbler(threading.Thread):
         self.runFlag = False
         return 
 
-
-        
 
     def create_apple(self):
         while True:
