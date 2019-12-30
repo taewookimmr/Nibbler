@@ -191,7 +191,7 @@ class Nibbler(threading.Thread):
                 return
             
             if left :
-                headDir = LEFT
+                self.headDir = LEFT
                 return
 
         if r == 0:
@@ -232,27 +232,27 @@ class Nibbler(threading.Thread):
         
         if c < 0:
 
-            if left :
-                self.headDir = LEFT
-                return
-
-            if up and r < 0:
-                selfheadDir = UP
-                return
-        
-        
             if down and r > 0:
                 self.headDir = DOWN
                 return
         
             if right: 
-                headDir = RIGHT
+                self.headDir = RIGHT
                 return
+
+            if left :
+                self.headDir = LEFT
+                return
+
+            if up and r < 0:
+                self.headDir = UP
+                return
+    
 
         if r > 0 :
 
             if down:
-                headDir = DOWN
+                self.headDir = DOWN
                 return
 
 
