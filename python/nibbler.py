@@ -86,15 +86,15 @@ class Nibbler(threading.Thread):
         if cango:
             np = nr*self.mapsize+nc
             # 현재 꼬리를 지우고, 새로운 머리에 붙이는 방식으로 이동한다.
-            self.grids[self.body[-1]]["bg"]="gray"
+            self.grids[self.body[-1]]["highlightbackground"]="gray"
             self.body.pop()
             self.body.insert(0, np)
-            self.grids[self.body[0]]["bg"] ="blue"
-            self.grids[self.body[1]]["bg"] ="black"
+            self.grids[self.body[0]]["highlightbackground"] ="blue"
+            self.grids[self.body[1]]["highlightbackground"] ="black"
             return True 
         else:
             for p in self.body:
-                self.grids[p]["bg"]="orange"
+                self.grids[p]["highlightbackground"]="orange"
             return False
 
     def is_able_to_go(self, newDir=KEEP):
@@ -295,7 +295,7 @@ class Nibbler(threading.Thread):
             p = random.randint(0, self.mapsize*self.mapsize-1)
             if p not in self.body:
                 self.applePosition=p
-                self.grids[p]["bg"] = "red"
+                self.grids[p]["highlightbackground"] = "red"
                 self.appleEatten=False
                 break
 
@@ -317,7 +317,7 @@ class Emulator():
             for c in range(self.mapsize):
                 b = tkinter.Button(self.root, width = 2, height=1)
                 b.grid(row=r, column=c)
-                b["bg"]="gray"
+                b["highlightbackground"]="gray"
                 
                 self.grids.append(b)
         Nibbler(self.mapsize, self.grids).start()
