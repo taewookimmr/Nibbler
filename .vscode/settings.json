@@ -1,5 +1,6 @@
 {
     "files.associations": {
         "nibbler.h": "c"
-    }
+    },
+    "python.pythonPath": "/usr/local/bin/python3"
 }
